@@ -1,0 +1,12 @@
+#!/bin/bash
+export OVS_DIR="/usr/src/ovs"
+export OVS_INSTALL_DIR="/usr"
+export RTE_SDK="/usr/src/dpdk"
+
+export DPDK_VERSION="2.2.0"
+export OVS_VERSION="2.5.0"
+export RTE_TARGET="x86_64-native-linuxapp-gcc"
+# export RTE_TARGET="x86_64-ivshmem-linuxapp-gcc"
+
+export IFNAME="eno33554960"
+export IFPORT="02:02.0"

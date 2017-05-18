@@ -1,0 +1,24 @@
+diff --git a/lib/librte_eal/linuxapp/igb_uio/igb_uio.c b/lib/librte_eal/linuxapp/igb_uio/igb_uio.c
+index d1ca26e..c46a00f 100644
+--- a/lib/librte_eal/linuxapp/igb_uio/igb_uio.c
++++ b/lib/librte_eal/linuxapp/igb_uio/igb_uio.c
+@@ -505,14 +505,11 @@ igbuio_pci_probe(struct pci_dev *dev, const struct pci_device_id *id)
+         }
+         /* fall back to INTX */
+     case RTE_INTR_MODE_LEGACY:
+-        if (pci_intx_mask_supported(dev)) {
+-            dev_dbg(&dev->dev, "using INTX");
+-            udev->info.irq_flags = IRQF_SHARED;
+-            udev->info.irq = dev->irq;
+-            udev->mode = RTE_INTR_MODE_LEGACY;
+-            break;
+-        }
+-        dev_notice(&dev->dev, "PCI INTX mask not supported\n");
++        dev_dbg(&dev->dev, "using INTX");
++        udev->info.irq_flags = IRQF_SHARED;
++        udev->info.irq = dev->irq;
++        udev->mode = RTE_INTR_MODE_LEGACY;
++        break;
+         /* fall back to no IRQ */
+     case RTE_INTR_MODE_NONE:
+         udev->mode = RTE_INTR_MODE_NONE;

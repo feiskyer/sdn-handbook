@@ -1,0 +1,29 @@
+diff --git a/mk/internal/rte.extvars.mk b/mk/internal/rte.extvars.mk
+index 040d39f..cabef0a 100644
+--- a/mk/internal/rte.extvars.mk
++++ b/mk/internal/rte.extvars.mk
+@@ -52,9 +52,9 @@ RTE_EXTMK ?= $(RTE_SRCDIR)/Makefile
+ export RTE_EXTMK
+
+# RTE_SDK_BIN must point to .config, include/ and lib/.
+-RTE_SDK_BIN := $(RTE_SDK)/$(RTE_TARGET)
++RTE_SDK_BIN := $(RTE_SDK)/build
+ ifeq ($(wildcard $(RTE_SDK_BIN)/.config),)
+-$(error Cannot find .config in $(RTE_SDK))
++$(error Cannot find .config in $(RTE_SDK_BIN))
+ endif
+
+#
+diff --git a/mk/rte.extsubdir.mk b/mk/rte.extsubdir.mk
+index f50f006..819020a 100644
+--- a/mk/rte.extsubdir.mk
++++ b/mk/rte.extsubdir.mk
+@@ -46,7 +46,7 @@ $(DIRS-y):
+        @echo "== $@"
+        $(Q)$(MAKE) -C $(@) \
+                M=$(CURDIR)/$(@)/Makefile \
+-               O=$(BASE_OUTPUT)/$(CUR_SUBDIR)/$(@)/$(RTE_TARGET) \
++               O=$(BASE_OUTPUT)/$(CUR_SUBDIR)/build \
+                BASE_OUTPUT=$(BASE_OUTPUT) \
+                CUR_SUBDIR=$(CUR_SUBDIR)/$(@) \
+                S=$(CURDIR)/$(@) \
