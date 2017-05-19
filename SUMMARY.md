@@ -2,7 +2,7 @@
 
 - [1. 前言](README.md)
 - [2. SDN](sdn/index.md)
-- [3. 网络基础](basic/index.md)
+- [3. 网络基础理论](basic/index.md)
 - [4. Linux网络](linux/index.md)
 - [5. Open vSwitch](ovs/index.md)
   - [5.1 OVS介绍](ovs/index.md)
