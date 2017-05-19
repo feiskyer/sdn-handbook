@@ -1,4 +1,4 @@
-# OVN Internal
+# OVN实践
 
 ## OVN Logical Flow
 
@@ -333,3 +333,5 @@ ingress(dp="sw0", inport="sw0-port1")
 -------------------------------------
  0. ls_in_port_sec_l2: no match (implicit drop)
 ```
+
+更多OVN的使用方法可以参考[这里](https://github.com/feiskyer/ops/tree/master/ovs/ovn)。
