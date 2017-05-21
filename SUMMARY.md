@@ -15,6 +15,24 @@
   - [2.8 Overlay](basic/overlay.md)
   - [2.9 交换机](basic/switch.md)
 - [3. Linux网络](linux/index.md)
+  - [3.1 常用工具](linux/tools.md)
+    - [3.1.1 网络抓包tcpdump](linux/tcpdump.md)
+    - [3.1.2 scapy](linux/scapy.md)
+  - [3.2 Linux网络配置](linux/config.md)
+    - [3.2.1 虚拟网络设备](linux/virtual-device.md)
+    - IPv6
+    - 路由
+    - NAT
+    - 防火墙
+    - DNS
+  - [3.3 负载均衡](linux/loadbalance.md)
+  - [3.4 SR-IOV](linux/sr-iov.md)
+  - [3.5 内核VRF](linux/vrf.md)
+  - [3.6 内核网络参数](linux/params.md)
+  - 3.7 eBPF
+  - 3.8 XDP
+  - [3.9 杂项](linux/other.md)
+    - [网络模拟器](linux/emulator.md)
 - [4. Open vSwitch](ovs/index.md)
   - [4.1 OVS介绍](ovs/index.md)
   - [4.2 OVS编译](ovs/build.md)
