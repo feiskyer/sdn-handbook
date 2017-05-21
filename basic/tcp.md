@@ -65,7 +65,7 @@ MSS让主机限制另一端发送数据报的长度。
 
 1.  当连接到一个不在监听的端口时，客户端回收到一个RST响应（UDP连接到一个不存在的端口时会产生一个ICMP端口不可达的差错）。
 2.  在连接终止时，也可以通过发送一个复位报文段而不是FIN来终止连接，可通过设置SO_LINGER来这么做。
-3.  可通过TCP的SO_KEEPALIVE选项来检测半打开连接，当检测到这种连接时会发送一个RST报文。关于该选项更多的内容参见http://www.tldp.org/HOWTO/html_single/TCP-Keepalive-HOWTO/。
+3.  可通过TCP的SO_KEEPALIVE选项来检测半打开连接，当检测到这种连接时会发送一个RST报文。关于该选项更多的内容参见<http://www.tldp.org/HOWTO/html_single/TCP-Keepalive-HOWTO/>。
 
 **SO_LINGER 选项**
 

@@ -18,8 +18,6 @@ wget -o /etc/yum.repos.d/ovs-master.repo https://copr.fedorainfracloud.org/coprs
 yum install openvswitch openvswitch-ovn-*
 ```
 
-注：DPDK版本见<https://copr.fedorainfracloud.org/coprs/pmatilai/dpdk-snapshot/>。
-
 ## OVS常用命令参考
 
 **如何添加bridge和port**

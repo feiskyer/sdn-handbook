@@ -10,7 +10,7 @@
 4. ARP and IPv6 Neighbor Discovery suppression for known IP-MAC bindings
 5. Native support for NAT and load balancing using OVS connection tracking
 6. Native fully distributed support for DHCP
-7. Works with any OVS datapath (such as the default Linux kernel datapath, DPDK, or Hyper-V) that supports all required features (namely Geneve tunnels and OVS connection tracking. See the datapath feature list in the [FAQ](https://github.com/openvswitch/ovs/blob/master/FAQ.md#general) for details.)
+7. Works with any OVS datapath (such as the default Linux kernel datapath, DPDK, or Hyper-V) that supports all required features (namely Geneve tunnels and OVS connection tracking)
 8. Supports L3 gateways from logical to physical networks
 9. Supports software-based L2 gateways
 10. Supports TOR (Top of Rack) based L2 gateways that implement the hardware_vtep schema
@@ -54,8 +54,6 @@ yum install openvswitch openvswitch-ovn-*
 ```sh
 apt-get install -y openvswitch-switch ovn-central ovn-common ovn-controller-vtep ovn-docker ovn-host
 ```
-
-注：DPDK版本见<https://copr.fedorainfracloud.org/coprs/pmatilai/dpdk-snapshot/>。
 
 ## 启动ovn
 

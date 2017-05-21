@@ -94,8 +94,5 @@ Virtual)、QoS
 -   <http://intel.com/go/dpdk>
 -   <https://fd.io> and <https://wiki.fd.io/view/Main_Page>
 -   <https://github.com/lagopus/lagopus>
--   [DPDK 201](DPDK_201.pdf)
--   [n00bs guide to ovs dpdk](n00bs_guide_to_OVS_DPDK_v2.pdf)
 -   [Data Plane Performance Demonstrators (DPPD)](https://01.org/zh/intel-data-plane-performance-demonstrators?langredirect=1)
--   [DPDK Packet Framework](dpdk-packet-framework.pdf)
 

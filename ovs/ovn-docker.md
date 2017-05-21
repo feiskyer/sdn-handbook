@@ -1,7 +1,5 @@
 # OVN docker plugin
 
-[OVN integration with Docker networking](https://github.com/openvswitch/ovs/blob/master/INSTALL.Docker.md) is an excellent guide to setup ovn for docker containers.
-
 ```sh
 # start docker
 docker daemon --cluster-store=consul://127.0.0.1:8500 \
@@ -101,4 +99,3 @@ ovn-nbctl ls-del red-net
 
 * <http://docs.openvswitch.org/en/latest/howto/docker/>
 * <http://dockone.io/article/1200>
-
