@@ -87,14 +87,15 @@ Virtual)、QoS
 
 ## 参考文档
 
+> 注: 本章内容大部分整理自《[深入浅出DPDK](https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B01FQ9SMZO)》的读书笔记。
+
+-   《[深入浅出DPDK](https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B01FQ9SMZO)》
 -   <http://dpdk.org> and <http://dpdk.org/doc/guides/>
 -   <http://intel.com/go/dpdk>
 -   <https://fd.io> and <https://wiki.fd.io/view/Main_Page>
 -   <https://github.com/lagopus/lagopus>
 -   [DPDK 201](DPDK_201.pdf)
 -   [n00bs guide to ovs dpdk](n00bs_guide_to_OVS_DPDK_v2.pdf)
--   《[深入浅出DPDK](https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B01FQ9SMZO)》
--   [Data Plane Performance Demonstrators
-    (DPPD)](https://01.org/zh/intel-data-plane-performance-demonstrators?langredirect=1)
+-   [Data Plane Performance Demonstrators (DPPD)](https://01.org/zh/intel-data-plane-performance-demonstrators?langredirect=1)
 -   [DPDK Packet Framework](dpdk-packet-framework.pdf)
 
