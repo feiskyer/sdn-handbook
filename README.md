@@ -7,7 +7,8 @@ SDN （Software Defined Networking）作为当前最重要的热门技术之一�
 - 网络基础
 - SDN网络
 - 容器网络
-- Linux网络、OVS以及DPDK
+- Linux网络
+- OVS以及DPDK
 - SD-WAN
 - NFV
 - 实践案例

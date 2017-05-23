@@ -1,15 +1,15 @@
 # OVN Kubernetes
 
-VN provides network virtualization to containers. OVN's integration with containers currently works in two modes - the "underlay" mode or the "overlay" mode.
+[ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)提供了一个ovs OVN网络插件，支持underlay和overlay两种模式。
 
-* In the "underlay" mode, one can create logical networks and can have containers running inside VMs, standalone VMs (without having any containers running inside them) and physical machines connected to the same logical network. In this mode, OVN programs the Open vSwitch instances running in hypervisors with containers running inside the VMs.
-* In the "overlay" mode, OVN can create a logical network amongst containers running on multiple hosts. In this mode, OVN programs the Open vSwitch instances running inside your VMs or directly on bare metal hosts.
+- underlay：容器运行在虚拟机中，而ovs则运行在虚拟机所在的物理机上，OVN将容器网络和虚拟机网络连接在一起
+- overlay：OVN通过logical overlay network连接所有节点的容器，此时ovs可以直接运行在物理机或虚拟机上
 
-## Overlay mode
+## Overlay模式
 
 ![](Vp0TCil.png)
 
-### Setup master
+### 配置master
 
 ```
 ovs-vsctl set Open_vSwitch . external_ids:k8s-api-server="127.0.0.1:8080"
@@ -19,7 +19,7 @@ ovn-k8s-overlay master-init \
   --node-name="kube-master"
 ```
 
-### Setup nodes
+### 配置Node
 
 ```
 ovs-vsctl set Open_vSwitch . \
@@ -36,12 +36,13 @@ ovn-k8s-overlay minion-init \
   --node-name="kube-minion1"
 ```
 
-### Gateway nodes (minions or separate nodes)
+### 配置网关Node (可以用已有的Node或者单独的节点)
 
-```
+选项一：外网使用单独的网卡`eth1`
+
+```sh
 ovs-vsctl set Open_vSwitch . \
   external_ids:k8s-api-server="$K8S_API_SERVER_IP:8080"
-
 ovn-k8s-overlay gateway-init \
   --cluster-ip-subnet="192.168.0.0/16" \
   --physical-interface eth1 \
@@ -50,31 +51,31 @@ ovn-k8s-overlay gateway-init \
   --default-gw 10.33.74.253
 ```
 
-The second option is to share a single network interface for both your management traffic (e.g ssh) as well as the cluster's North-South traffic. To do this, you need to attach your physical interface to a OVS bridge and move its IP address and routes to that bridge. For e.g., if 'eth0' is your primary network interface with IP address of "$PHYSICAL_IP", you create a bridge called 'breth0', add 'eth0' as a port of that bridge and then move "$PHYSICAL_IP" to 'breth0'. You also need to move the routing table entries to 'breth0'. The following helper script does the same
+选项二：外网网络和管理网络共享同一个网卡，此时需要将该网卡添加到网桥中，并迁移IP和路由
 
-```
+```sh
+# attach eth0 to bridge breth0 and move IP/routes
 ovn-k8s-util nics-to-bridge eth0
-```
 
-```
+# initialize gateway
+ovs-vsctl set Open_vSwitch . \
+  external_ids:k8s-api-server="$K8S_API_SERVER_IP:8080"
 ovn-k8s-overlay gateway-init \
   --cluster-ip-subnet="$CLUSTER_IP_SUBNET" \
   --bridge-interface breth0 \
   --physical-ip "$PHYSICAL_IP" \
   --node-name="$NODE_NAME" \
   --default-gw "$EXTERNAL_GATEWAY"
-```
 
-Since you share a NIC for both mgmt and North-South connectivity, you will have to start a separate daemon to de-multiplex the traffic.
-
-```
+# Since you share a NIC for both mgmt and North-South connectivity, you will 
+# have to start a separate daemon to de-multiplex the traffic.
 ovn-k8s-gateway-helper --physical-bridge=breth0 --physical-interface=eth0 \
     --pidfile --detach
 ```
 
-### Start watcher
+### 启动ovn-k8s-watcher
 
-Finally, start a watcher on the master node to listen for Kubernetes events. This watcher is responsible to create logical ports and load-balancer entries.
+ovn-k8s-watcher监听Kubernetes事件，并创建逻辑端口和负载均衡。
 
 ```
 ovn-k8s-watcher \
@@ -86,15 +87,15 @@ ovn-k8s-watcher \
   --detach
 ```
 
-### CNI plugin
+### CNI插件原理
 
-#### ADD
+#### ADD操作
 
-* Get ip/mac/gateway from 'ovn' annotation
-* Setup interface and routes inside container's netns
-* Add ovs port
+- 从`ovn` annotation获取ip/mac/gateway
+- 在容器netns中配置接口和路由
+- 添加ovs端口
 
-```
+```sh
 ovs-vsctl add-port br-int veth_outside \
   --set interface veth_outside \
     external_ids:attached_mac=mac_address \
@@ -102,17 +103,17 @@ ovs-vsctl add-port br-int veth_outside \
     external_ids:ip_address=ip_address
 ```
 
-#### DEL
+#### DEL操作
 
-```
+```sh
 ovs-vsctl del-port br-int port
 ```
 
-## Underlay mode
+## Underlay模式
 
-Not supported yet.
+暂未实现。
 
+## 参考文档
 
-**Reference**
+- <https://github.com/openvswitch/ovn-kubernetes>
 
-* <https://github.com/openvswitch/ovn-kubernetes>
