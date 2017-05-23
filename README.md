@@ -22,4 +22,4 @@ SDN （Software Defined Networking）作为当前最重要的热门技术之一�
 
 ## 项目源码
 
-见[https://github.com/feiskyer/sdn-handbook](https://github.com/feiskyer/sdn-handbook)。
+项目源码存放于Github上，见[https://github.com/feiskyer/sdn-handbook](https://github.com/feiskyer/sdn-handbook)。
