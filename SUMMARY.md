@@ -16,10 +16,10 @@
   - [2.9 交换机](basic/switch.md)
 - [3. Linux网络](linux/index.md)
   - [3.1 常用工具](linux/tools.md)
-    - [3.1.1 网络抓包tcpdump](linux/tcpdump.md)
-    - [3.1.2 scapy](linux/scapy.md)
+    - [网络抓包tcpdump](linux/tcpdump.md)
+    - [scapy](linux/scapy.md)
   - [3.2 Linux网络配置](linux/config.md)
-    - [3.2.1 虚拟网络设备](linux/virtual-device.md)
+    - [虚拟网络设备](linux/virtual-device.md)
     - IPv6
     - 路由
     - NAT
@@ -31,19 +31,19 @@
   - [3.6 内核网络参数](linux/params.md)
   - 3.7 eBPF
   - 3.8 XDP
-  - [3.9 杂项](linux/other.md)
+  - [3.9 其他](linux/other.md)
     - [网络模拟器](linux/emulator.md)
 - [4. Open vSwitch](ovs/index.md)
   - [4.1 OVS介绍](ovs/index.md)
   - [4.2 OVS编译](ovs/build.md)
   - [4.3 OVN](ovs/ovn.md)
-    - [4.3.1 OVN编译](ovs/ovn-ubuntu.md)
-    - [4.3.2 OVN实践](ovs/ovn-internal.md)
-    - [4.3.3 OVN高可用](ovs/ovn-ha.md)
-    - [4.3.4 OVN Kubernetes插件](ovs/ovn-kubernetes.md)
-    - [4.3.5 OVN Docker插件](ovs/ovn-docker.md)
-    - [4.3.6 OVN Libvirt](ovs/ovn-libvirt.md)
-    - [4.3.7 OVN OpenStack](ovs/ovn-openstack.md)
+    - [OVN编译](ovs/ovn-ubuntu.md)
+    - [OVN实践](ovs/ovn-internal.md)
+    - [OVN高可用](ovs/ovn-ha.md)
+    - [OVN Kubernetes插件](ovs/ovn-kubernetes.md)
+    - [OVN Docker插件](ovs/ovn-docker.md)
+    - [OVN Libvirt](ovs/ovn-libvirt.md)
+    - [OVN OpenStack](ovs/ovn-openstack.md)
 - [5. DPDK](dpdk/index.md)
   - [5.1 DPDK简介](dpdk/introduction.md)
   - [5.2 DPDK安装](dpdk/install.md)
@@ -66,8 +66,6 @@
   - 6.2 SDN控制器
   - 6.3 南向协议
   - 6.4 数据平面
-  - 6.5 SDN实践
-    - [6.5.1 Goolge网络](practice/google.md)
 - [7. SDWAN](sdwan/index.md)
   - 7.1 SDWAN简介
   - 7.2 SDWAN架构
@@ -86,26 +84,28 @@
 - [9. 容器网络](container/index.md)
   - [9.1 Host Network](container/host.md)
   - [9.2 CNI](container/cni/index.md)
-    - [9.2.1 CNI介绍](container/cni/index.md)
-    - [9.2.2 Flannel](container/flannel/index.md)
-    - [9.2.3 Weave](container/weave/index.md)
-    - [9.2.4 Contiv](container/contiv/index.md)
-    - [9.2.5 Calico](container/calico/index.md)
-    - [9.2.6 SR-IOV](container/sriov/index.md)
-    - [9.2.7 Romana](container/romana/index.md)
-    - [9.2.8 OpenContrail](container/opencontrail/index.md)
-    - [9.2.9 CNI Plugin Chains](container/cni/cni-chain.md)
+    - [CNI介绍](container/cni/index.md)
+    - [Flannel](container/flannel/index.md)
+    - [Weave](container/weave/index.md)
+    - [Contiv](container/contiv/index.md)
+    - [Calico](container/calico/index.md)
+    - [SR-IOV](container/sriov/index.md)
+    - [Romana](container/romana/index.md)
+    - [OpenContrail](container/opencontrail/index.md)
+    - [CNI Plugin Chains](container/cni/cni-chain.md)
   - [9.3 CNM](container/cnm/index.md)
-    - [9.3.1 CNM介绍](container/cnm/index.md)
-    - [9.3.2 Calico](container/calico/index.md)
-    - [9.3.3 Contiv](container/contiv/index.md)
-    - [9.3.4 Romana](container/romana/index.md)
-    - [9.3.5 SR-IOV](container/sriov/index.md)
+    - [CNM介绍](container/cnm/index.md)
+    - [Calico](container/calico/index.md)
+    - [Contiv](container/contiv/index.md)
+    - [Romana](container/romana/index.md)
+    - [SR-IOV](container/sriov/index.md)
   - [9.4 Kubernetes网络](container/kubernetes.md)
 
 ## SDN实践
 
 - [10. Neutron](neutron/index.md)
+- [11. SDN实践案例](practice/index.md)
+  - [11.1 Goolge网络](practice/google.md)
 
 ## 参考文档
 
