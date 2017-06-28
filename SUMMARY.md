@@ -59,10 +59,9 @@
 ## SDN&NFV
 
 - [6. SDN](sdn/index.md)
-  - [6.1 SDN简介](sdn/introduction.md)
-  - [6.2 SDN控制器](sdn/controller.md)
-  - [6.3 南向接口](sdn/south.md)
-  - [6.4 数据平面](sdn/dataplane.md)
+  - [6.1 SDN控制器](sdn/controller.md)
+  - [6.2 南向接口](sdn/south.md)
+  - [6.3 数据平面](sdn/dataplane.md)
 - [7. NFV](nfv/index.md)
 - [8. SDWAN](sdwan/index.md)
 
