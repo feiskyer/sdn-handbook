@@ -77,22 +77,23 @@ Virtual)、QoS
 
 ![](images/14893934528742.jpg)
 
--   [SPDK](http://www.spdk.io/)
--   [OPNFV](https://wiki.opnfv.org/)
--   [Open vSwitch for NFV](https://wiki.opnfv.org/display/ovsnfv/Open+vSwitch+For+NFV+Home)
--   [Data Plane Acceleration (DPACC)](https://wiki.opnfv.org/display/dpacc/DPACC+Home)
--   [OVS-DPDK](ovs-dpdk.html)
--   [VPP](http://fd.io)
--   [Seastar](http://www.seastar-project.org)
+- [SPDK](http://www.spdk.io/)
+- [OPNFV](https://wiki.opnfv.org/)
+- [Open vSwitch for NFV](https://wiki.opnfv.org/display/ovsnfv/Open+vSwitch+For+NFV+Home)
+- [Data Plane Acceleration (DPACC)](https://wiki.opnfv.org/display/dpacc/DPACC+Home)
+- [OVS-DPDK](ovs-dpdk.html)
+- [VPP](http://fd.io)和[TLDK](https://wiki.fd.io/view/TLDK)
+- [Seastar](http://www.seastar-project.org)：TCP/IP协议栈的实现只适合在内网运行，公网复杂的网络环境会导致它出现各种问题
+- [F-Stack](http://www.f-stack.org/)：粘合了DPDK,FreeBSD协议栈，POSIX API，同时支持coroutine
 
 ## 参考文档
 
 > 注: 本章内容大部分整理自《[深入浅出DPDK](https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B01FQ9SMZO)》的读书笔记。
 
--   《[深入浅出DPDK](https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B01FQ9SMZO)》
--   <http://dpdk.org> and <http://dpdk.org/doc/guides/>
--   <http://intel.com/go/dpdk>
--   <https://fd.io> and <https://wiki.fd.io/view/Main_Page>
--   <https://github.com/lagopus/lagopus>
--   [Data Plane Performance Demonstrators (DPPD)](https://01.org/zh/intel-data-plane-performance-demonstrators?langredirect=1)
+- 《[深入浅出DPDK](https://www.amazon.cn/%E5%9B%BE%E4%B9%A6/dp/B01FQ9SMZO)》
+- <http://dpdk.org> and <http://dpdk.org/doc/guides/>
+- <http://intel.com/go/dpdk>
+- <https://fd.io> and <https://wiki.fd.io/view/Main_Page>
+- <https://github.com/lagopus/lagopus>
+- [Data Plane Performance Demonstrators (DPPD)](https://01.org/zh/intel-data-plane-performance-demonstrators?langredirect=1)
 

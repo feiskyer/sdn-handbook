@@ -20,19 +20,16 @@
     - [scapy](linux/scapy.md)
   - [3.2 Linux网络配置](linux/config.md)
     - [虚拟网络设备](linux/virtual-device.md)
-    - IPv6
-    - 路由
-    - NAT
-    - 防火墙
-    - DNS
   - [3.3 负载均衡](linux/loadbalance.md)
   - [3.4 SR-IOV](linux/sr-iov.md)
   - [3.5 内核VRF](linux/vrf.md)
   - [3.6 内核网络参数](linux/params.md)
-  - 3.7 eBPF
-  - 3.8 XDP
-  - [3.9 其他](linux/other.md)
-    - [网络模拟器](linux/emulator.md)
+  - [3.7 eBPF](linux/bpf/index.md)
+    - [bcc](linux/bpf/bcc.md)
+    - [故障排查](linux/bpf/troubleshooting.md)
+  - [3.8 XDP](linux/XDP/index.md)
+    - [XDP架构](linux/XDP/design.md)
+    - [使用场景](linux/XDP/use-cases.md)
 - [4. Open vSwitch](ovs/index.md)
   - [4.1 OVS介绍](ovs/index.md)
   - [4.2 OVS编译](ovs/build.md)
@@ -59,25 +56,15 @@
   - [5.12 SPDK](dpdk/spdk.md)
   - [5.13 OpenFastPath](dpdk/OpenFastPath.md)
 
-## SDN
+## SDN&NFV
 
 - [6. SDN](sdn/index.md)
-  - 6.1 SDN简介
-  - 6.2 SDN控制器
-  - 6.3 南向协议
-  - 6.4 数据平面
-- [7. SDWAN](sdwan/index.md)
-  - 7.1 SDWAN简介
-  - 7.2 SDWAN架构
-  - 7.3 实践案例
-
-## NFV
-
-- [8. NFV](nfv/index.md)
-  - 8.1 NFV简介
-  - 8.2 网络虚拟化
-  - 8.3 NFV编排
-  - 8.4 NFV实践
+  - [6.1 SDN简介](sdn/introduction.md)
+  - [6.2 SDN控制器](sdn/controller.md)
+  - [6.3 南向接口](sdn/south.md)
+  - [6.4 数据平面](sdn/dataplane.md)
+- [7. NFV](nfv/index.md)
+- [8. SDWAN](sdwan/index.md)
 
 ## 容器网络
 
@@ -105,9 +92,8 @@
 
 - [10. Neutron](neutron/index.md)
 - [11. SDN实践案例](practice/index.md)
-  - [11.1 Goolge网络](practice/google.md)
+  - [Goolge网络](practice/google.md)
 
 ## 参考文档
 
 - [11. 参考文档](reference.md)
-
