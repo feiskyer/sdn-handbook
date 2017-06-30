@@ -31,5 +31,3 @@ QinQ是为了扩大VLAN ID的数量而提出的技术（IEEE 802.1ad），外层
 
 - http://www.cnblogs.com/sammyliu/p/4626419.html
 - https://docs.ustack.com/unp/src/architecture/vlan.html
-
-

@@ -49,7 +49,7 @@ Virtual eXtensible Local Area Network (VXLAN) 是一种将2层报文封装到UDP
 
 基于组播的 VXLAN 网络其实是没有控制平面的，依赖于数据平面的 flood-and-learn，如果交换机不支持组播的话，将会退化到广播，目前这类的应用已经很少了。为了解决组播的依赖，一种方法是通过 HER 的方法复制报文成单播，这样组播报文或者广播报文可以通过单播复制的形式发送，这种方式被称为 Head-End Replication。Open vSwitch Driver 实现的 VXLAN 即使用类似这种方式避免组播的依赖。HER 在即使有控制平面的情况下依然具备价值，因为有可能有静默主机、MAC 表项老化、虚拟机需要使用组播或广播达成业务的需求。
 
-## VXLAN Offload
+### VXLAN Offload
 
 一些新型号的网卡(Intel X540 or X710)，具备VXLAN硬件封包／解包能力。开启硬件VXLAN offload，并使用较大的MTU（如9000），可以明显提升虚拟网络的性能。
 
@@ -59,20 +59,20 @@ Virtual eXtensible Local Area Network (VXLAN) 是一种将2层报文封装到UDP
 ethtool -k <eth0/eth1> tx-udp_tnl-segmentation <on/off>
 ```
 
-## VXLAN转发过程
+### VXLAN转发过程
 
-### 同VXLAN ID内转发
+#### 同VXLAN ID内转发
 
 VXLAN最早依靠组播泛洪的方式来转发，但这会导致产生大量的组播流量。所以，在实际生产中，通常使用SDN控制器结合南向协议来避免组播问题。
 
 ![](media/vxlan.png)
 (图片来自[csdn](http://blog.csdn.net/sinat_31828101/article/details/50504656))
 
-### 不同VXLAN ID转发
+#### 不同VXLAN ID转发
 
 大致转发过程与上面类似，所不同的是需要报文在所属vtep或者vxlan gateway处来转换vxlan id（源和目的处都需要做这个转换）。
 
-### VXLAN与非VXLAN（如VLAN）转发
+#### VXLAN与非VXLAN（如VLAN）转发
 
 需要VXLAN Gateway来转换vxlan vni和vlan id：
 
@@ -116,7 +116,6 @@ VXLAN最早依靠组播泛洪的方式来转发，但这会导致产生大量的
 
 ![](images/14893309304601.jpg)
 
-
 ### Distributed Anycast Gateway
 
 IETF 在 draft-ietf-bess-evpn-inter-subnet-forwarding中对在 EVPN 中属于不同的 VxLan 下如何通过 Integrated Routing and Bridging（以下简称 IRB）处理跨子网通信做了说明，换句话说，EVPN VxLan 提供了原生的基于 IRB 的分布式三层网关参考。
@@ -154,11 +153,9 @@ IRB 即 VTEP 提供三层和二层功能，但是对于具体如何路由，目�
 
 从上面的分析可以得知，Symmetric IRB 最大的好处一是不需要所有 VTEP 均配置所有 VNI，二是不需要所有的 VTEP 知道整个 Fabric 的完整 Host tables 信息。但是，这是建立在不是最差情况的前提，如果说恰好每个租户都在每个 VTEP 下具有虚拟机，或着整个网络只有一个租户，那么网络可能产生退化。Symmetric IRB 的主要优化场景是针对多租户的。
 
-
 ![](images/14893310348471.jpg)
 
-
-# NVGRE
+## NVGRE
 
 NVGRE主要支持者是Microsoft。与VXLAN不同的是，NVGRE没有采用标准传输协议（TCP/UDP），而是借助通用路由封装协议（GRE）。NVGRE使用GRE头部的低24位作为租户网络标识符（TNI），与VXLAN一样可以支持1600个虚拟网络。为了提供描述带宽利用率粒度的流，传输网络需要使用GRE头，但是这导致NVGRE不能兼容传统负载均衡，这是NVGRE与VXLAN相比最大的区别也是最大的不足。为了提高负载均衡能力建议每个NVGRE主机使用多个IP地址，确保更多流量能够被负载均衡。
 
@@ -166,9 +163,15 @@ NVGRE不需要依赖泛洪和IP组播进行学习，而是以一种更灵活的�
 
 ![](media/14749887923088.png)
 
+## STT
+
+STT（Stateless Transport Tunneling Protocol）是Nicira提交的隧道协议，类似于VXLAN和VGGRE，它也是把二层的帧封装在一个ip报文的payload中，并在前面增加了tcp头和STT头。注意，STT的tcp头是精心构造出来的，以便利用TSO、LRO、GRO等网卡特性。
+
 ## Geneve
 
-## STT
+Geneve（Generic Network Virtualization Encapsulation）旨在统一VXLAN、NVGRE等各种方案，提供更灵活且适用各种虚拟化场景的通用封装协议。
+
+Geneve使用UDP封包，端口号为6081。
 
 ## 参考文档
 

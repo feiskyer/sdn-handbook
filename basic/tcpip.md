@@ -210,11 +210,8 @@ PMTU 的用途是动态的确定从发送端到接收端整个路径上的最小
 
 ![](media/14749896132580.jpg)
 
-
 ## 参考文档
 
 * [1] <http://www.cnblogs.com/sammyliu/p/5079898.html>
 * [2] <http://www.cisco.com/c/en/us/support/docs/ip/generic-routing-encapsulation-gre/25885-pmtud-ipfrag.html>
 * [3] <http://blog.csdn.net/opens_tym/article/details/17658569>
-
-
