@@ -59,4 +59,10 @@ SD-WAN产品需要支持基于软件的VPN，防火墙，WAN Optimization等。�
 
 更多SD-WAN厂商列表见[这里](http://packetpushers.net/virtual-toolbox/list-sd-wan-vendors/)。
 
+国外运营商SDWAN服务及提供商：
+
+![](images/operator-managed-sdwan.png)
+
+(图片来自[NET MANIAS](http://www.netmanias.com/en/?m=view&id=oneshot&no=12105))
+
 _注：部分转自[SD-WAN](https://en.wikipedia.org/wiki/SD-WAN)和[SD-WAN漫谈](https://zhuanlan.zhihu.com/p/27775512)。_
