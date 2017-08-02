@@ -38,8 +38,12 @@ SDN控制器通过南向接口（如OpenFlow）向SDN交换机下发流表，有
 
 - OpenDaylight
 - ONOS
-- NOX & POX
+- NOX/POX
 - OpenContrail
 - Ryu
 - Floodlight
-- Beacon
+
+## 参考文档
+
+- 《SDN核心技术剖析和实战指南》
+- 《重构网络-SDN架构与实现》

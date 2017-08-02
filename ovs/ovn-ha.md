@@ -73,4 +73,3 @@ OVN控制平面的Active-Active高可用还在开发中，预计会借鉴etcd的
 * <https://github.com/blp/ovs-reviews/tree/raft3>
 * <http://docs.openvswitch.org/en/latest/topics/high-availability/>
 * <http://galsagie.github.io/2015/08/03/df-distributed-db/>
-

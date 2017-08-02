@@ -1,4 +1,4 @@
-# OVN docker plugin
+# OVN docker插件
 
 ```sh
 # start docker
@@ -95,7 +95,7 @@ ovn-nbctl lsp-del $eid
 ovn-nbctl ls-del red-net
 ```
 
-**References**
+## 参考文档
 
 * <http://docs.openvswitch.org/en/latest/howto/docker/>
 * <http://dockone.io/article/1200>

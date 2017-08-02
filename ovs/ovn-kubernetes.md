@@ -1,4 +1,4 @@
-# OVN Kubernetes
+# OVN Kubernetes插件
 
 [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)提供了一个ovs OVN网络插件，支持underlay和overlay两种模式。
 
@@ -11,7 +11,7 @@
 
 ### 配置master
 
-```
+```sh
 ovs-vsctl set Open_vSwitch . external_ids:k8s-api-server="127.0.0.1:8080"
 ovn-k8s-overlay master-init \
   --cluster-ip-subnet="192.168.0.0/16" \
@@ -21,7 +21,7 @@ ovn-k8s-overlay master-init \
 
 ### 配置Node
 
-```
+```sh
 ovs-vsctl set Open_vSwitch . \
   external_ids:k8s-api-server="$K8S_API_SERVER_IP:8080"
 
@@ -116,4 +116,3 @@ ovs-vsctl del-port br-int port
 ## 参考文档
 
 - <https://github.com/openvswitch/ovn-kubernetes>
-

@@ -2,9 +2,10 @@
 
 * 《计算机网络》
 * 《TCP/IP详解》
-* 《深入理解LINUX网络技术内幕》
 * 《深入浅出DPDK》
 * 《重构网络-SDN架构与实现》
+* 《SDN核心技术剖析和实战指南》
+* 《深入理解LINUX网络技术内幕》
 * [Open Networking Foundation](https://www.opennetworking.org/)
 * [OpenStack Networking Guide](https://docs.openstack.org/ocata/networking-guide/)
 * <https://www.openstack.org/>

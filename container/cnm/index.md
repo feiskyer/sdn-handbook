@@ -76,7 +76,7 @@ Calico在每一个计算节点利用Linux Kernel实现了一个高效的vRouter�
 
 Romana是Panic Networks在2016年提出的开源项目，旨在借鉴 route aggregation的思路来解决Overlay方案给网络带来的开销。
 
-目前，Romana的docker plugin还在开发中，见[这里](http://romana.io/try_romana/docker/)。
+目前，Romana的docker plugin还在开发中。
 
 ## VPP
 

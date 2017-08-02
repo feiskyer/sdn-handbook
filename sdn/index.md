@@ -12,7 +12,7 @@ SDN（Software Defined Network）自诞生以来就非常火热，它是一种�
 - 控制层负责数据平面资源的编排、维护网络拓扑和状态信息等
 - 数据层负责数据处理、转发和状态收集
 
-![](sdn-architecture.png)
+![](images/sdn-architecture.png)
 
 ## SDN的基本特征
 
@@ -47,9 +47,12 @@ SDN具有三个基本特征
 
 ## SDN技能图谱
 
-![](Open_SDN_skill_map_ch_v2_0.jpg)
+![](images/Open_SDN_skill_map_ch_v2_0.jpg)
+
+ONF整理的[SDN Reading List](https://www.opennetworking.org/sdn-resources/sdn-reading-list)是一个不错的SDN进阶资料库。
 
 ## 参考文档
 
 - <https://www.opennetworking.org/index.php>
 - [漫谈SDN大历史](http://www.sdnlab.com/18601.html)
+- [SDN Reading List](https://www.opennetworking.org/sdn-resources/sdn-reading-list)
