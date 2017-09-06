@@ -64,13 +64,28 @@ yum install openvswitch openvswitch-ovn-*
 
 **如何配置QOS，比如队列和限速**
 
-    ovs-vsctl -- set Port eth2 qos=@newqos  \
-    -- --id=@newqos create QoS type=linux-htb other-config:max-rate=1000000000 queues=0=@q0,1=@q1 \
-    -- --id=@q0 create  Queue dscp =1 other-config:min-rate=100000000 other-config:max-rate=100000000 \
-    -- --id=@q1 create Queue other-config:min-rate=500000000
+    # egress
+    $ ovs-vsctl -- \
+    add-br br0 -- \
+    add-port br0 eth0 -- \
+    add-port br0 vif1.0 -- set interface vif1.0 ofport_request=5 -- \
+    add-port br0 vif2.0 -- set interface vif2.0 ofport_request=6 -- \
+    set port eth0 qos=@newqos -- \
+    --id=@newqos create qos type=linux-htb \
+      other-config:max-rate=1000000000 \
+      queues:123=@vif10queue \
+      queues:234=@vif20queue -- \
+    --id=@vif10queue create queue other-config:max-rate=10000000 -- \
+    --id=@vif20queue create queue other-config:max-rate=20000000
+    $ ovs-ofctl add-flow br0 in_port=5,actions=set_queue:123,normal
+    $ ovs-ofctl add-flow br0 in_port=6,actions=set_queue:234,normal
+
+    # ingress
+    ovs-vsctl set interface vif1.0 ingress_policing_rate=10000
+    ovs-vsctl set interface vif1.0 ingress_policing_burst=8000
 
     # clear
-    ovs-vsctl clear Port eth2 qos
+    ovs-vsctl clear Port vif1.0 qos
     ovs-vsctl list qos
     ovs-vsctl destroy qos _uuid
     ovs-vsctl list qos
@@ -78,7 +93,7 @@ yum install openvswitch openvswitch-ovn-*
 
 **如何配置流监控sflow**
 
-    ovs-vsctl -- --id=@s create sFlow agent=eth2 target=\"10.0.0.1:6343\" header=128 sampling=64 polling=10  -- set Bridge br-int sflow=@s
+    ovs-vsctl -- --id=@s create sFlow agent=vif1.0 target=\"10.0.0.1:6343\" header=128 sampling=64 polling=10  -- set Bridge br-int sflow=@s
     ovs-vsctl -- clear Bridge br-int sflow
 
 **如何配置流规则**
