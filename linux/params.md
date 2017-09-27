@@ -25,6 +25,37 @@ net.netfilter.nf_conntrack_tcp_timeout_established=300
 net.netfilter.nf_conntrack_buckets=1048576
 ```
 
+## bridge-nf
+
+bridge-nf使得netfilter可以对Linux网桥上的IPv4/ARP/IPv6包过滤。比如，设置`net.bridge.bridge-nf-call-iptables＝1`后，二层的网桥在转发包时也会被iptables的FORWARD规则所过滤，这样有时会出现L3层的iptables rules去过滤L2的帧的问题（见[这里](https://bugzilla.redhat.com/show_bug.cgi?id=512206)）。
+
+常用的选项包括
+
+- net.bridge.bridge-nf-call-arptables：是否在arptables的FORWARD中过滤网桥的ARP包
+- net.bridge.bridge-nf-call-ip6tables：是否在ip6tables链中过滤IPv6包
+- net.bridge.bridge-nf-call-iptables：是否在iptables链中过滤IPv4包
+- net.bridge.bridge-nf-filter-vlan-tagged：是否在iptables/arptables中过滤打了vlan标签的包
+
+当然，也可以通过`/sys/devices/virtual/net/<bridge-name>/bridge/nf_call_iptables`来设置，但要注意内核是取两者中大的生效。
+
+有时，可能只希望部分网桥禁止bridge-nf，而其他网桥都开启（比如CNI网络插件中一般要求bridge-nf-call-iptables选项开启，而有时又希望禁止某个网桥的bridge-nf），这时可以改用iptables的方法：
+
+```sh
+iptables -t raw -I PREROUTING -i <bridge-name> -j NOTRACK
+```
+
+## 反向路径过滤
+
+反向路径过滤可用于防止数据包从一接口传入，又从另一不同的接口传出（这有时被称为 “非对称路由” ）。除非必要，否则最好将其关闭，因为它可防止来自子网络的用户采用 IP 地址欺骗手段，并减少 DDoS （分布式拒绝服务）攻击的机会。
+
+通过 rp_filter 选项启用反向路径过滤，比如 `sysctl -w net.ipv4.conf.default.rp_filter=INTEGER`。支持三种选项：
+
+- 0 ——未进行源验证。
+- 1 ——处于如 RFC3704 所定义的严格模式。
+- 2 ——处于如 RFC3704 所定义的松散模式。
+
+可以通过 `net.ipv4.interface.rp_filter`可实现对每一网络接口设置的覆盖。
+
 ## TCP相关
 
 **参数**| **描述**| **默认值**| **优化值**
@@ -54,8 +85,9 @@ net.netfilter.nf_conntrack_buckets=1048576
 `net.ipv4.tcp_max_syn_backlog`  | 对于还未获得对方确认的连接请求，可保存在队列中的最大数目。如果服务器经常出现过载，可以尝试增加这个数字。 | 128 | 
 `net.ipv4.tcp_low_latency` | 允许TCP/IP栈适应在高吞吐量情况下低延时的情况，这个选项应该禁用。 | 0 | 0 
 
+## ARP相关
 
-## ARP表回收
+### ARP回收
 
 - `gc_stale_time` 每次检查neighbour记录的有效性的周期。当neighbour记录失效时，将在给它发送数据前再解析一次。缺省值是60秒。
 - `gc_thresh1` 存在于ARP高速缓存中的最少记录数，如果少于这个数，垃圾收集器将不会运行。缺省值是128。
@@ -70,7 +102,7 @@ net.ipv4.neigh.default.gc_thresh2=4096
 net.ipv4.neigh.default.gc_thresh3=8192
 ```
 
-### 其他ARP相关参数
+### ARP过滤
 
 arp_filter - BOOLEAN
 
@@ -163,3 +195,8 @@ arp_accept - BOOLEAN
     If the ARP table already contains the IP address of the
     gratuitous arp frame, the arp table will be updated regardless
     if this setting is on or off.
+
+## 参考文档
+
+- [Linux Kernel ip sysctl documentation](https://www.kernel.org/doc/Documentation/networking/ip-sysctl.txt)
+

@@ -2,11 +2,52 @@
 
 ## lvs
 
-Linux Virtual Server (lvs) 是Linux内核自带的负载均衡器，也是目前性能最好的软件负载均衡器之一。
+Linux Virtual Server (lvs) 是Linux内核自带的负载均衡器，也是目前性能最好的软件负载均衡器之一。lvs包括ipvs内核模块和ipvsadm用户空间命令行工具两部分。
+
+在lvs中，节点分为Director Server和Real Server两个角色，其中Director Server是负载均衡器所在节点，而Real Server则是后端服务节点。当用户的请求到达Director Server时，内核netfilter机制的PREROUTING链会将发往本地IP的包转发给INPUT链（也就是ipvs的工作链），在INPUT链上，ipvs根据用户定义的规则对数据包进行处理（如修改目的IP和端口等），并把新的包发送到POSTROUTING链，进而再转发给Real Server。
 
 ### 转发模式
 
-![](images/lvs.png)
+**NAT**
+
+NAT模式通过修改数据包的目的IP和目的端口来将包转发给Real Server。它的特点包括
+
+- Director Server必须作为Real Server的网关，并且它们必须处于同一个网段内
+- 不需要Real Server做任何特殊配置
+- 支持端口映射
+- 请求和响应都需要经过Director Server，易称为性能瓶颈
+
+![](images/lvs-nat.png)
+
+**DR**
+
+DR（Direct Route）模式通过修改数据包的目的MAC地址将包转发给Real Server。它的特点包括
+
+- 需要在Real Server的lo上配置vip，并配置arp_ignore和arp_announce忽略对vip的ARP解析请求
+- Director Server和Real Server必须在同一个物理网络内，二层可达
+- 虽然所有请求包都会经过Director Server，但响应报文不经过，有性能上的优势
+
+![](images/lvs-dr.png)
+
+**TUN**
+
+TUN模式通过将数据包封装在另一个IP包中（源地址为DIP，目的为RIP）将包转发给Real Server。它的特点包括
+
+- Real Server需要在lo上配置vip，但不需要Director Server作为网关
+- 不支持端口映射
+
+![](images/lvs-tun.png)
+
+**FULLNAT**
+
+FULLNAT是阿里在NAT基础上增加的一个新转发模式，通过引入local IP（CIP-VIP转换为LIP->RIP，而LIP和RIP均为IDC内网IP）使得物理网络可以跨越不同vlan，代码维护在<https://github.com/alibaba/LVS>上面。其特点是
+
+- 物理网络仅要求三层可达
+- Real Server不需要任何特殊配置
+- SYNPROXY防止synflooding攻击
+- 未进入内核主线，维护复杂
+
+![](images/lvs-fullnat.png)
 
 ### 调度算法
 
@@ -145,3 +186,5 @@ Vortex参考了Maglev，大致的架构和实现跟Maglev类似：
 - <http://www.linuxvirtualserver.org/>
 - <http://www.haproxy.org/>
 - [揭秘100G＋线速云负载均衡的设计与实现：从Maglev到Vortex](https://mp.weixin.qq.com/s?src=3&timestamp=1495372816&ver=1&signature=ifj0PRCsXKHVPiVcl-dNxhSlKKKcX6hwO1rz-hbipIrL2weMxHv0bSysMyY-yB-AXJrUZix9kjQCpvsRJnxF1grXi*O6nZZjaUFFEdA6ROfgicdAvfEFDM4-i42kY*58X1UmOW8WUoQqc6b8iEuUVw==)
+- [你真的掌握lvs工作原理吗](https://mp.weixin.qq.com/s?__biz=MzA3OTgyMDcwNg%3D%3D&idx=1&mid=2650625837&sn=2b86df07eabba8ff2035583913a0ef41)
+- [lvs 负载均衡fullnat 模式clientip 怎样传递给 realserver](http://wangxuemin.github.io/2015/07/26/lvs%20%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1fullnat%20%E6%A8%A1%E5%BC%8Fclientip%20%E6%80%8E%E6%A0%B7%E4%BC%A0%E9%80%92%E7%BB%99%20realserver/)

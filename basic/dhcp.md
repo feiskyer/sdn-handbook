@@ -1,4 +1,4 @@
-# DHCP/DNS
+# DHCP和DNS
 
 ## DHCP
 
@@ -10,9 +10,9 @@ DHCP使用了租约的概念，或称为计算机IP地址的有效期。租用�
 
 ## DNS
 
-DNS（Domain Name System）是一个解析域名和IP地址对应关系的服务，它以递归的方式运行：首先访问最近的DNS服务器，如果查询到域名对应的IP地址则直接返回，否则的话再向上一级查询。DNS通常以UDP报文来传送，并使用端口号53。
+DNS（Domain Name System）是一个解析域名和IP地址对应关系以及电子邮件选路信息的服务。它以递归的方式运行：首先访问最近的DNS服务器，如果查询到域名对应的IP地址则直接返回，否则的话再向上一级查询。DNS通常以UDP报文来传送，并使用端口号53。
 
-DNS是一种用于TCP/IP应用程序的分布式数据库，提供主机名字和IP地址之间的转换以及有关电子邮件的选路信息。从应用的角度来看，其实就是两个库函数gethostbyname()和gethostbyaddr()。
+从应用的角度来看，其实就是两个库函数gethostbyname()和gethostbyaddr()。
 
 > FQDN：全域名(FQDN，Fully Qualified Domain Name)是指主机名加上全路径，全路径中列出了序列中所有域成员(包括root)。全域名可以从逻辑上准确地表示出主机在什么地方，也可以说全域名是主机名的一种完全表示形式。
 
@@ -35,6 +35,52 @@ DNS服务器支持TCP和UDP两种协议的查询方式，而且端口都是53。
 
 1. 当查询数据多大以至于产生了数据截断(TC标志为1)，这时，需要利用TCP的分片能力来进行数据传输（看TCP的相关章节）。 
 2. 当主（master）服务器和辅（slave）服务器之间通信，辅服务器要拿到主服务器的zone信息的时候。
+
+### 示例
+
+```sh
+$ dig k8s.io
+; <<>> DiG 9.10.3-P4-Ubuntu <<>> k8s.io
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 37946
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;k8s.io.				IN	A
+
+;; ANSWER SECTION:
+k8s.io.			299	IN	A	23.236.58.218
+
+;; Query time: 392 msec
+;; SERVER: 169.254.169.254#53(169.254.169.254)
+;; WHEN: Mon Sep 11 05:50:37 UTC 2017
+;; MSG SIZE  rcvd: 51
+
+
+# 反向查询
+$ dig -x 23.236.58.218
+; <<>> DiG 9.10.3-P4-Ubuntu <<>> -x 23.236.58.218
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 7130
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;218.58.236.23.in-addr.arpa.	IN	PTR
+
+;; ANSWER SECTION:
+218.58.236.23.in-addr.arpa. 119	IN	PTR	218.58.236.23.bc.googleusercontent.com.
+
+;; Query time: 158 msec
+;; SERVER: 169.254.169.254#53(169.254.169.254)
+;; WHEN: Mon Sep 11 05:50:45 UTC 2017
+;; MSG SIZE  rcvd: 107
+```
 
 ## FAQ
 
