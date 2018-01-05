@@ -1,6 +1,6 @@
 # CNI (Container Network Interface)
 
-Container Network Interface (CNI)是由CoreOS发起的容器网络规范，是Kubernetes网络插件的基础。其基本思想为：Container Runtime在创建容器时，先创建好network namespace，然后调用CNI插件为这个netns配置网络，其后再启动容器内的进程。
+Container Network Interface (CNI) 最早是由CoreOS发起的容器网络规范，是Kubernetes网络插件的基础。其基本思想为：Container Runtime在创建容器时，先创建好network namespace，然后调用CNI插件为这个netns配置网络，其后再启动容器内的进程。现已加入CNCF，成为CNCF主推的网络模型。
 
 CNI插件包括两部分：
 
@@ -8,6 +8,14 @@ CNI插件包括两部分：
   - 配置网络: AddNetwork(net *NetworkConfig, rt *RuntimeConf) (types.Result, error)
   - 清理网络: DelNetwork(net *NetworkConfig, rt *RuntimeConf) error
 - IPAM Plugin负责给容器分配IP地址，主要实现包括host-local和dhcp。
+
+Kubernetes Pod 中的其他容器都是Pod所属pause容器的网络，创建过程为：
+
+1. kubelet 先创建pause容器生成network namespace
+2. 调用网络CNI driver
+3. CNI driver 根据配置调用具体的cni 插件
+4. cni 插件给pause 容器配置网络
+5. pod 中其他的容器都使用 pause 容器的网络
 
 ![](Chart_Container-Network-Interface-Drivers.png)
 
@@ -185,7 +193,7 @@ ptp插件通过veth pair给容器和host创建点对点连接：veth pair一端�
 
 ## IPVLAN
 
-IPVLAN 和 MACVLAN 类似，都是从一个主机接口虚拟出多个虚拟网络接口。一个重要的区别就是所有的虚拟接口都有相同的 mac 地址，而拥有不同的 ip 地址。因为所有的虚拟接口要共享 mac 地址，所有有些需要注意的地方：
+IPVLAN 和 MACVLAN 类似，都是从一个主机接口虚拟出多个虚拟网络接口。一个重要的区别就是所有的虚拟接口都有相同的 mac 地址，而拥有不同的 ip 地址。因为所有的虚拟接口要共享 mac 地址，所以有些需要注意的地方：
 
 - DHCP 协议分配 ip 的时候一般会用 mac 地址作为机器的标识。这个情况下，客户端动态获取 ip 的时候需要配置唯一的 ClientID 字段，并且 DHCP server 也要正确配置使用该字段作为机器标识，而不是使用 mac 地址
 
@@ -253,21 +261,21 @@ cni配置格式为
 - 无法和 802.11(wireless) 网络一起工作
 - 主机接口（也就是master interface）不能同时作为ipvlan和macvlan的master接口
 
-## [Flannel](../flannel/index.html)
+## [Flannel](../flannel/index.md)
 
 [Flannel](https://github.com/coreos/flannel)通过给每台宿主机分配一个子网的方式为容器提供虚拟网络，它基于Linux TUN/TAP，使用UDP封装IP包来创建overlay网络，并借助etcd维护网络的分配情况。
 
-## [Weave Net](../weave/index.html)
+## [Weave Net](../weave/index.md)
 
 Weave Net是一个多主机容器网络方案，支持去中心化的控制平面，各个host上的wRouter间通过建立Full Mesh的TCP链接，并通过Gossip来同步控制信息。这种方式省去了集中式的K/V Store，能够在一定程度上减低部署的复杂性，Weave将其称为“data centric”，而非RAFT或者Paxos的“algorithm centric”。
 
 数据平面上，Weave通过UDP封装实现L2 Overlay，封装支持两种模式，一种是运行在user space的sleeve mode，另一种是运行在kernal space的 fastpath mode。Sleeve mode通过pcap设备在Linux bridge上截获数据包并由wRouter完成UDP封装，支持对L2 traffic进行加密，还支持Partial Connection，但是性能损失明显。Fastpath mode即通过OVS的odp封装VxLAN并完成转发，wRouter不直接参与转发，而是通过下发odp 流表的方式控制转发，这种方式可以明显地提升吞吐量，但是不支持加密等高级功能。
 
-## [Contiv](../contiv/index.html)
+## [Contiv](../contiv/index.md)
 
 [Contiv](http://contiv.github.io)是思科开源的容器网络方案，主要提供基于Policy的网络管理，并与主流容器编排系统集成。Contiv最主要的优势是直接提供了多租户网络，并支持L2(VLAN), L3(BGP), Overlay (VXLAN)以及思科自家的ACI。
 
-## [Calico](../calico/index.html)
+## [Calico](../calico/index.md)
 
 [Calico](https://www.projectcalico.org/) 是一个基于BGP的纯三层的数据中心网络方案（不需要Overlay），并且与OpenStack、Kubernetes、AWS、GCE等IaaS和容器平台都有良好的集成。
 
@@ -275,7 +283,7 @@ Calico在每一个计算节点利用Linux Kernel实现了一个高效的vRouter�
 
 此外，Calico基于iptables还提供了丰富而灵活的网络Policy，保证通过各个节点上的ACLs来提供Workload的多租户隔离、安全组以及其他可达性限制等功能。
 
-## [OVN](../../ovs/ovn-kubernetes.html)
+## [OVN](../ovn-kubernetes.md)
 
 [OVN (Open Virtual Network)](http://openvswitch.org/support/dist-docs/ovn-architecture.7.html) 是OVS提供的原生虚拟化网络方案，旨在解决传统SDN架构（比如Neutron DVR）的性能问题。
 
@@ -292,11 +300,11 @@ Intel维护了一个SR-IOV的[CNI插件](https://github.com/Intel-Corp/sriov-cni
 
 项目主页见<https://github.com/Intel-Corp/sriov-cni>。
 
-## [Romana](../romana/index.html)
+## [Romana](../romana/index.md)
 
 Romana是Panic Networks在2016年提出的开源项目，旨在借鉴 route aggregation的思路来解决Overlay方案给网络带来的开销。
 
-## [OpenContrail](../opencontrail/index.html)
+## [OpenContrail](../opencontrail/index.md)
 
 OpenContrail是Juniper推出的开源网络虚拟化平台，其商业版本为Contrail。其主要由控制器和vRouter组成：
 
@@ -311,9 +319,11 @@ OpenContrail是Juniper推出的开源网络虚拟化平台，其商业版本为C
 
 [michaelhenkel/opencontrail-cni-plugin](https://github.com/michaelhenkel/opencontrail-cni-plugin)提供了一个OpenContrail的CNI插件。
 
-## [CNI Plugin Chains](cni-chain.html)
+## [CNI Plugin Chains](cni-chain.md)
 
-CNI还支持Plugin Chains，即指定一个插件列表，由Runtime依次执行每个插件。这对支持portmapping、vm等非常有帮助。
+CNI还支持Plugin Chains，即指定一个插件列表，由Runtime依次执行每个插件。这对支持端口映射（portmapping）、虚拟机等非常有帮助。
+
+使用方法请参考[这里](cni-chain.md)。
 
 ## 其他
 

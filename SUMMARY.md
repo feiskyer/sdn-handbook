@@ -102,11 +102,10 @@
 ## SDN实践
 
 - [10. Mininet](mininet/index.md)
-- [11. Neutron](neutron/index.md)
-- [12. SDN实践案例](practice/index.md)
+- [11. SDN实践案例](practice/index.md)
   - [Goolge网络](practice/google.md)
 
 ## 参考文档
 
-- [13. FAQ](FAQ.md)
-- [14. 参考文档](reference.md)
+- [12. FAQ](FAQ.md)
+- [13. 参考文档](reference.md)
