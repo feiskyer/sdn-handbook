@@ -15,7 +15,7 @@ NAT模式通过修改数据包的目的IP和目的端口来将包转发给Real S
 - Director Server必须作为Real Server的网关，并且它们必须处于同一个网段内
 - 不需要Real Server做任何特殊配置
 - 支持端口映射
-- 请求和响应都需要经过Director Server，易称为性能瓶颈
+- 请求和响应都需要经过Director Server，易成为性能瓶颈
 
 ![](images/lvs-nat.png)
 
