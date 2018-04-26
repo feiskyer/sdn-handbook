@@ -4,21 +4,21 @@
     "gitbook": ">= 3.2.2",
     "language": "zh-cn",
     "plugins": [
-        "alerts",
         "mermaid",
         "github",
-        "github-buttons",
-        "page-treeview",
         "editlink",
+        "github-buttons",
+        "tbfed-pagefooter",
+        "page-toc",
         "-lunr",
         "-search",
         "search-plus"
     ],
     "pluginsConfig": {
-        "page-treeview": {
-            "copyright": "Copyright &#169; Pengfei Ni",
-            "minHeaderCount": "2",
-            "minHeaderDeep": "2"
+        "page-toc": {
+          "selector": ".markdown-section h1, .markdown-section h2, .markdown-section h3",
+          "position": "before-first",
+          "showByDefault": true
         },
         "github-buttons": {
             "repo": "feiskyer/sdn-handbook",
@@ -34,6 +34,11 @@
         "editlink": {
             "base": "https://github.com/feiskyer/sdn-handbook/blob/master/",
             "label": "编辑本页"
+        },
+        "tbfed-pagefooter": {
+          "copyright":"&copy Pengfei Ni",
+          "modify_label": "Updated at",
+          "modify_format": "YYYY-MM-DD HH:mm:ss"
         }
     },
     "generator": "site"
