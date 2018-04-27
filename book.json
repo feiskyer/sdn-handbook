@@ -9,17 +9,12 @@
         "editlink",
         "github-buttons",
         "tbfed-pagefooter",
-        "page-toc",
+        "anchor-navigation-ex-toc",
         "-lunr",
         "-search",
         "search-plus"
     ],
     "pluginsConfig": {
-        "page-toc": {
-          "selector": ".markdown-section h1, .markdown-section h2, .markdown-section h3",
-          "position": "before-first",
-          "showByDefault": true
-        },
         "github-buttons": {
             "repo": "feiskyer/sdn-handbook",
             "types": [
