@@ -30,6 +30,13 @@
             "base": "https://github.com/feiskyer/sdn-handbook/blob/master/",
             "label": "编辑本页"
         },
+        "anchor-navigation-ex-toc": {
+            "showLevel": false,
+            "mode": "float",
+            "float": {
+                "showLevelIcon": false
+            }
+        },
         "tbfed-pagefooter": {
           "copyright":"&copy Pengfei Ni",
           "modify_label": "Updated at",
