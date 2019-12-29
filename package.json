@@ -4,15 +4,16 @@
   "description": "SDN （Software Defined Networking）作为当前最重要的热门技术之一，目前已经普遍得到大家的共识。有关SDN的资料和书籍非常丰富，但入门和学习SDN依然是非常困难。本书整理了SDN实践中的一些基本理论和实践案例心得，希望能给大家带来启发，也欢迎大家关注和贡献。",
   "main": "index.js",
   "dependencies": {
-    "gitbook-cli": "^2.3.0",
+    "gitbook-plugin-katex": "^1.1.3",
+    "gitbook-cli": "^2.3.2",
     "gitbook-plugin-alerts": "^0.1.1",
     "gitbook-plugin-editlink": "^1.0.2",
     "gitbook-plugin-github": "^2.0.0",
     "gitbook-plugin-github-buttons": "^2.1.0",
-    "gitbook-plugin-katex": "^1.1.3",
     "gitbook-plugin-mermaid": "^0.0.9",
     "gitbook-plugin-page-treeview": "^2.9.7",
-    "gitbook-plugin-search-plus": "^1.0.3"
+    "gitbook-plugin-search-plus": "^1.0.3",
+    "npm": "^6.13.4"
   },
   "devDependencies": {},
   "scripts": {
