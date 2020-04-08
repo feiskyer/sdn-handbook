@@ -20,7 +20,7 @@ SDN （Software Defined Networking）作为当前最重要的热门技术之一�
 
 ## 微信公众号
 
-![](images/mp-qrcode.jpeg)
+![](images/wx.png)
 
 ## 项目源码
 
