@@ -146,7 +146,7 @@ echo "2" >/proc/sys/net/ipv4/conf/all/arp_announce
 
 ## Haproxy
 
-Haproxy也是Linux最常用的负载均衡软件之一，兼具性能和功能的组合，同时支持TCP和HTTP负载均衡。
+Haproxy也是Linux最常用的负载均衡软件之一，兼具性能和功能的组合，同时支持TCP和HTTP负载均衡。
 
 配置和使用方法请见[官网](http://www.haproxy.org/)。
 
