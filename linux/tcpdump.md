@@ -1,6 +1,6 @@
 # tcpdump
 
-> 注：本文大部分转自[细说tcpdump的妙用](https://community.emc.com/message/854940#854940)，有删改。
+> 注：本文大部分转自[细说tcpdump的妙用](https://wizardforcel.gitbooks.io/network-basic/content/16.html)，有删改。
 
 tcpdump命令：
 
@@ -213,4 +213,4 @@ tcpdump可识别的关键字包括ip, igmp, tcp, udp, and icmp。
 
 ## 参考文档
 
-- [细说tcpdump的妙用](https://community.emc.com/message/854940#854940)
+- [细说tcpdump的妙用](https://wizardforcel.gitbooks.io/network-basic/content/16.html)
